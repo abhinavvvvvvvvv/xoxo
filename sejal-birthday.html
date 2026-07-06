@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sejal, on turning twenty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fff6f2;
+    --blush:#ffe3ec;
+    --rose:#e59cb9;
+    --rose-deep:#c75b83;
+    --maroon:#6e2c42;
+    --gold:#d8ab5f;
+    --shadow:rgba(110,44,66,0.18);
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    background:
+      radial-gradient(circle at 15% 10%, #ffe9f0 0%, transparent 45%),
+      radial-gradient(circle at 85% 20%, #ffe0ec 0%, transparent 40%),
+      radial-gradient(circle at 50% 90%, #ffd9e6 0%, transparent 50%),
+      linear-gradient(160deg, var(--cream) 0%, var(--blush) 100%);
+    font-family:'Quicksand', sans-serif;
+    color:var(--maroon);
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  /* floating hearts background */
+  #heart-field{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .bg-heart{
+    position:absolute;
+    bottom:-10%;
+    font-size:20px;
+    opacity:0.5;
+    animation:floatUp linear infinite;
+    color:var(--rose);
+    user-select:none;
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    10%{ opacity:0.55; }
+    90%{ opacity:0.4; }
+    100%{ transform:translateY(-115vh) translateX(var(--drift,20px)) rotate(25deg); opacity:0; }
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px 64px;
+  }
+
+  .card{
+    width:100%;
+    max-width:620px;
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.7);
+    border-radius:32px;
+    padding:48px 36px 40px;
+    text-align:center;
+    box-shadow:0 30px 60px -20px var(--shadow);
+    position:relative;
+  }
+
+  .corner-heart{
+    position:absolute;
+    font-size:22px;
+    color:var(--rose);
+    opacity:0.6;
+  }
+  .corner-heart.tl{ top:18px; left:22px; transform:rotate(-15deg);}
+  .corner-heart.br{ bottom:18px; right:22px; transform:rotate(15deg);}
+
+  .eyebrow{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:17px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--rose-deep);
+    margin:0 0 6px;
+  }
+
+  h1.name{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:clamp(52px, 12vw, 84px);
+    line-height:1;
+    margin:0 0 4px;
+    background:linear-gradient(100deg, var(--rose-deep), var(--gold) 55%, var(--rose-deep));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    cursor:pointer;
+    user-select:none;
+    transition:transform 0.25s ease;
+  }
+  h1.name:active{ transform:scale(0.97); }
+
+  .subtitle{
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;
+    color:var(--maroon);
+    margin:0 0 30px;
+    letter-spacing:0.02em;
+  }
+  .subtitle .num{
+    font-weight:600;
+    color:var(--rose-deep);
+  }
+
+  .divider{
+    width:70px;
+    height:2px;
+    margin:0 auto 30px;
+    background:linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+
+  /* countdown */
+  .countdown-label{
+    font-size:13px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--rose-deep);
+    margin-bottom:14px;
+    font-weight:600;
+  }
+
+  .countdown{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+
+  .unit{
+    background:linear-gradient(160deg, #ffffff, #ffe9f1);
+    border:1px solid rgba(199,91,131,0.25);
+    border-radius:18px;
+    padding:14px 10px 10px;
+    min-width:72px;
+    box-shadow:0 8px 20px -10px var(--shadow);
+  }
+  .unit .value{
+    font-family:'Cormorant Garamond', serif;
+    font-size:34px;
+    font-weight:600;
+    color:var(--rose-deep);
+    line-height:1;
+    font-variant-numeric: tabular-nums;
+  }
+  .unit .label{
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--maroon);
+    opacity:0.7;
+    margin-top:6px;
+    display:block;
+  }
+  .sep{
+    color:var(--rose);
+    font-size:20px;
+    margin-top:-6px;
+  }
+
+  .countdown-caption{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--maroon);
+    opacity:0.75;
+    margin:14px 0 34px;
+  }
+
+  /* button */
+  #openPoemBtn{
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:0.02em;
+    padding:16px 34px;
+    border-radius:999px;
+    border:none;
+    cursor:not-allowed;
+    background:linear-gradient(135deg,#d9d3d3,#c9c2c2);
+    color:#fff;
+    box-shadow:0 8px 18px -8px rgba(0,0,0,0.2);
+    transition:all 0.35s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  #openPoemBtn.unlocked{
+    cursor:pointer;
+    background:linear-gradient(135deg, var(--rose-deep), var(--gold));
+    animation:pulseGlow 2.2s ease-in-out infinite;
+  }
+  #openPoemBtn.unlocked:hover{
+    transform:translateY(-2px) scale(1.03);
+    box-shadow:0 14px 26px -10px rgba(199,91,131,0.55);
+  }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 8px 20px -8px rgba(199,91,131,0.5); }
+    50%{ box-shadow:0 10px 32px -6px rgba(216,171,95,0.65); }
+  }
+
+  .hint{
+    display:block;
+    margin-top:14px;
+    font-size:12.5px;
+    color:var(--rose-deep);
+    opacity:0.8;
+  }
+
+  /* overlay + envelope + letter */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(110,44,66,0.55);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:50;
+    padding:20px;
+  }
+  .overlay.show{ display:flex; }
+
+  .letter-box{
+    background:linear-gradient(170deg, #fffaf7, #fff0f4);
+    border-radius:22px;
+    max-width:520px;
+    width:100%;
+    max-height:86vh;
+    overflow-y:auto;
+    padding:44px 34px 34px;
+    position:relative;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.4);
+    animation:riseIn 0.6s cubic-bezier(.2,.9,.25,1);
+    border:1px solid rgba(216,171,95,0.4);
+  }
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(40px) scale(0.94); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .close-btn{
+    position:absolute;
+    top:14px;
+    right:18px;
+    background:none;
+    border:none;
+    font-size:22px;
+    color:var(--rose-deep);
+    cursor:pointer;
+    line-height:1;
+    opacity:0.7;
+  }
+  .close-btn:hover{ opacity:1; }
+
+  .poem-title{
+    font-family:'Dancing Script', cursive;
+    font-size:36px;
+    color:var(--rose-deep);
+    text-align:center;
+    margin:0 0 22px;
+  }
+
+  .poem-text{
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px;
+    line-height:1.85;
+    color:var(--maroon);
+    text-align:center;
+  }
+  .poem-text p{ margin:0 0 20px; }
+  .poem-text p:last-of-type{ margin-bottom:0; }
+
+  .poem-sign{
+    margin-top:26px;
+    text-align:center;
+    font-family:'Dancing Script', cursive;
+    font-size:26px;
+    color:var(--gold);
+  }
+
+  .flourish{
+    text-align:center;
+    color:var(--rose);
+    font-size:16px;
+    letter-spacing:6px;
+    margin:18px 0;
+    opacity:0.7;
+  }
+
+  footer{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--rose-deep);
+    opacity:0.75;
+    padding-bottom:26px;
+  }
+
+  /* burst hearts on click */
+  .burst-heart{
+    position:fixed;
+    pointer-events:none;
+    font-size:18px;
+    z-index:60;
+    animation:burstUp 1.1s ease-out forwards;
+    color:var(--rose-deep);
+  }
+  @keyframes burstUp{
+    0%{ transform:translate(0,0) scale(0.6); opacity:1; }
+    100%{ transform:translate(var(--bx,0), -120px) scale(1.1); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bg-heart, #openPoemBtn.unlocked, .letter-box, .burst-heart{ animation:none !important; }
+  }
+
+  @media (max-width:480px){
+    .card{ padding:38px 20px 32px; border-radius:24px; }
+    .unit{ min-width:60px; padding:10px 6px 8px; }
+    .unit .value{ font-size:26px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="heart-field"></div>
+
+<div class="wrap">
+  <div class="card">
+    <span class="corner-heart tl">❤</span>
+    <span class="corner-heart br">❤</span>
+
+    <p class="eyebrow">a little celebration for</p>
+    <h1 class="name" id="nameHeart">Sejal</h1>
+    <p class="subtitle">turning <span class="num">twenty</span> ✨</p>
+    <div class="divider"></div>
+
+    <p class="countdown-label">counting down to your day</p>
+    <div class="countdown">
+      <div class="unit"><span class="value" id="d">00</span><span class="label">Days</span></div>
+      <div class="sep">:</div>
+      <div class="unit"><span class="value" id="h">00</span><span class="label">Hours</span></div>
+      <div class="sep">:</div>
+      <div class="unit"><span class="value" id="m">00</span><span class="label">Mins</span></div>
+      <div class="sep">:</div>
+      <div class="unit"><span class="value" id="s">00</span><span class="label">Secs</span></div>
+    </div>
+    <p class="countdown-caption" id="caption">until 12:00 AM, July 7 (IST) — the moment you turn twenty</p>
+
+    <button id="openPoemBtn" disabled>🔒 Open Poem</button>
+    <span class="hint" id="hintText">this unlocks the moment your birthday begins</span>
+  </div>
+</div>
+
+<footer>made with love, just for you 🤍</footer>
+
+<div class="overlay" id="overlay">
+  <div class="letter-box">
+    <button class="close-btn" id="closeBtn">✕</button>
+    <p class="poem-title">Happy 20th Birthday, my Sejal ❤️</p>
+    <div class="poem-text">
+      <p>Twenty candles, one beautiful smile,<br>And somehow, you still outshine them all.<br>If birthdays are meant to celebrate miracles,<br>Then today the world celebrates you.</p>
+      <p>You're the calm in my chaos,<br>The reason random moments become memories,<br>The person who makes ordinary days<br>Feel like my favorite ones.</p>
+      <p>I don't know what I did to deserve you,<br>But if I had one wish today,<br>It would be that every birthday from here on<br>Finds me standing right beside you.</p>
+      <p>May your laugh stay this loud,<br>Your heart this soft,<br>Your dreams this fearless,<br>And your eyes always sparkle the way they do.</p>
+      <div class="flourish">✦ ✦ ✦</div>
+      <p>Happy 20th, my prettiest girl.<br>Thank you for being my safe place, my happiness, and my favorite person.</p>
+      <p>Here's to more forehead kisses, endless teasing,<br>late-night talks, warm hugs, and a lifetime of celebrating you.</p>
+      <p>I love you more than words will ever be able to say.</p>
+    </div>
+    <p class="poem-sign">Happy Birthday, Sejal 🤍</p>
+  </div>
+</div>
+
+<script>
+  // ---------- floating background hearts ----------
+  const field = document.getElementById('heart-field');
+  const heartChars = ['❤','💗','💕','🤍'];
+  for(let i=0;i<26;i++){
+    const el = document.createElement('div');
+    el.className='bg-heart';
+    el.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+    el.style.left = Math.random()*100+'vw';
+    const size = 12 + Math.random()*18;
+    el.style.fontSize = size+'px';
+    el.style.setProperty('--drift', (Math.random()*80-40)+'px');
+    const dur = 10 + Math.random()*14;
+    el.style.animationDuration = dur+'s';
+    el.style.animationDelay = (Math.random()*dur)+'s';
+    field.appendChild(el);
+  }
+
+  // ---------- countdown to July 7, 2026 00:00 IST ----------
+  const target = new Date("2026-07-07T00:00:00+05:30").getTime();
+  const dEl = document.getElementById('d');
+  const hEl = document.getElementById('h');
+  const mEl = document.getElementById('m');
+  const sEl = document.getElementById('s');
+  const btn = document.getElementById('openPoemBtn');
+  const hintText = document.getElementById('hintText');
+  const caption = document.getElementById('caption');
+  const pad = n => String(n).padStart(2,'0');
+
+  function tick(){
+    const now = Date.now();
+    const diff = target - now;
+
+    if(diff <= 0){
+      dEl.textContent='00'; hEl.textContent='00'; mEl.textContent='00'; sEl.textContent='00';
+      if(!btn.classList.contains('unlocked')){
+        btn.disabled = false;
+        btn.classList.add('unlocked');
+        btn.textContent = '💌 Open Poem';
+        hintText.textContent = "it's here — happy birthday, Sejal";
+        caption.textContent = "today is the day 🎂";
+      }
+      return;
+    }
+
+    const totalSec = Math.floor(diff/1000);
+    const days = Math.floor(totalSec/86400);
+    const hours = Math.floor((totalSec%86400)/3600);
+    const mins = Math.floor((totalSec%3600)/60);
+    const secs = totalSec%60;
+
+    dEl.textContent = pad(days);
+    hEl.textContent = pad(hours);
+    mEl.textContent = pad(mins);
+    sEl.textContent = pad(secs);
+
+    requestAnimationFrame(()=>{});
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- open / close poem ----------
+  const overlay = document.getElementById('overlay');
+  btn.addEventListener('click', ()=>{
+    if(!btn.classList.contains('unlocked')) return;
+    overlay.classList.add('show');
+  });
+  document.getElementById('closeBtn').addEventListener('click', ()=>{
+    overlay.classList.remove('show');
+  });
+  overlay.addEventListener('click', (e)=>{
+    if(e.target === overlay) overlay.classList.remove('show');
+  });
+
+  // ---------- little burst of hearts when tapping her name ----------
+  document.getElementById('nameHeart').addEventListener('click', (e)=>{
+    for(let i=0;i<10;i++){
+      const b = document.createElement('div');
+      b.className='burst-heart';
+      b.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+      b.style.left = (e.clientX + (Math.random()*40-20))+'px';
+      b.style.top = (e.clientY)+'px';
+      b.style.setProperty('--bx', (Math.random()*100-50)+'px');
+      document.body.appendChild(b);
+      setTimeout(()=>b.remove(), 1200);
+    }
+  });
+</script>
+
+</body>
+</html>
